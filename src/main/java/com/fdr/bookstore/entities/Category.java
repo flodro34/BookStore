@@ -1,5 +1,6 @@
 package com.fdr.bookstore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +25,7 @@ public class Category {
     private String catDesc;
 
     @OneToMany (mappedBy = "category")
+    @JsonIgnore
     private List<Book> books;
 
     public Category(String catName, String catDesc) {
