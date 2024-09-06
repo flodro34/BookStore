@@ -26,7 +26,7 @@ class BookStoreApplicationTests {
 
     @Test
     public void testCreateBook(){
-        Book book = new Book("L'histoire de France'", "Tolkien", 25.0);
+        Book book = new Book("Le Seigneur des anneaux", "Tolkien", 28.0);
         bookRepository.save(book);
     }
 
