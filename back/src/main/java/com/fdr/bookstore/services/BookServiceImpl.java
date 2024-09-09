@@ -4,10 +4,11 @@ import com.fdr.bookstore.dto.BookDTO;
 import com.fdr.bookstore.entities.Book;
 import com.fdr.bookstore.entities.Category;
 import com.fdr.bookstore.repositories.BookRepository;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,9 @@ class BookServiceImpl implements BookService {
 
     @Autowired
     BookRepository bookRepository;
+
+    @Autowired
+    ModelMapper modelMapper;
 
     @Override
     public BookDTO saveBook(BookDTO bookDTO) {
@@ -88,6 +92,10 @@ class BookServiceImpl implements BookService {
 
     @Override
     public BookDTO convertEntityToDto(Book b ){
+
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        BookDTO bookDTO = modelMapper.map(b, BookDTO.class);
+        return bookDTO;
 //        BookDTO bookDTO = new BookDTO();
 //
 //        bookDTO.setIdBook(b.getIdBook());
@@ -99,24 +107,33 @@ class BookServiceImpl implements BookService {
 //        return bookDTO;
 
         // avec le builder de Lombok
-        return BookDTO.builder()
-                .idBook(b.getIdBook())
-                .title(b.getTitle())
-                .author(b.getAuthor())
-                .price(b.getPrice())
-                .category(b.getCategory())
-                //.categoryName(b.getCategory().getCatName())
-                .build();
+//        return BookDTO.builder()
+//                .idBook(b.getIdBook())
+//                .title(b.getTitle())
+//                .author(b.getAuthor())
+//                .price(b.getPrice())
+//                .category(b.getCategory())
+//                //.categoryName(b.getCategory().getCatName())
+//                .build();
+
+        //avec ModelMapper
+
     }
 
     @Override
     public Book convertDtoToEntity(BookDTO dto) {
-        Book book = new Book();
-        book.setIdBook(dto.getIdBook());
-        book.setTitle(dto.getTitle());
-        book.setAuthor(dto.getAuthor());
-        book.setPrice(dto.getPrice());
-        book.setCategory(dto.getCategory());
+
+        //avec ModelMapper
+        Book book = modelMapper.map(dto, Book.class);
         return book;
+
+        //version classique
+//        Book book = new Book();
+//        book.setIdBook(dto.getIdBook());
+//        book.setTitle(dto.getTitle());
+//        book.setAuthor(dto.getAuthor());
+//        book.setPrice(dto.getPrice());
+//        book.setCategory(dto.getCategory());
+//        return book;
     }
 }

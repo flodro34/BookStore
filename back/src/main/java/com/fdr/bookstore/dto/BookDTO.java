@@ -16,6 +16,6 @@ public class BookDTO {
     private String author;
     private Double price;
     private Category category;
-    //private String categoryName;
+    private String categoryName;
 
 }

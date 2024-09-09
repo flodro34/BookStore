@@ -5,7 +5,6 @@ import com.fdr.bookstore.entities.Category;
 import com.fdr.bookstore.repositories.BookRepository;
 
 import com.fdr.bookstore.repositories.CategoryRepository;
-import jakarta.persistence.SqlResultSetMapping;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
